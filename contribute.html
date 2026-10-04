@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add / Review Mandal - SoBo Bappa Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">SoBo Bappa Map</a>
+    <a class="btn btn-ghost" href="/">Back to map</a>
+  </header>
+
+  <main class="narrow">
+    <h1>Add / Review Mandal</h1>
+    <p class="muted">What would you like to do?</p>
+
+    <div class="options" role="tablist">
+      <button class="option" role="tab" data-target="add" aria-controls="panel-add">
+        <strong>Add a mandal to the map</strong>
+        <span>Know one we are missing? Drop a pin.</span>
+      </button>
+      <button class="option" role="tab" data-target="review" aria-controls="panel-review">
+        <strong>Review a mandal</strong>
+        <span>Rate the crowd, parking and overall visit.</span>
+      </button>
+      <button class="option" role="tab" data-target="photos" aria-controls="panel-photos">
+        <strong>Upload pictures of a mandal</strong>
+        <span>JPG, PNG or WEBP, up to 5 MB.</span>
+      </button>
+    </div>
+
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+
+    <!-- ADD A MANDAL -->
+    <section id="panel-add" class="panel" hidden>
+      <h2>Add a mandal to the map</h2>
+      <form id="form-add" novalidate>
+        <label>Mandal name *
+          <input name="name" required maxlength="80" placeholder="e.g. Girgaoncha Raja">
+        </label>
+        <label>Area *
+          <select name="area" id="add-area" required></select>
+        </label>
+        <label>Nearest station
+          <input name="nearest_station" maxlength="60" placeholder="e.g. Charni Road">
+        </label>
+        <label>Established year (optional)
+          <input name="established_year" type="number" min="1892" max="2026" inputmode="numeric">
+        </label>
+        <label>Short description (optional)
+          <textarea name="description" maxlength="400" rows="3"></textarea>
+        </label>
+        <p class="label-like">Location *: click the map to place the pin (drag the pin to adjust)</p>
+        <div id="pick-map" role="application" aria-label="Map for choosing the mandal location"></div>
+        <p id="pin-readout" class="muted small">No pin placed yet.</p>
+        <button class="btn btn-primary" type="submit">Add mandal</button>
+      </form>
+    </section>
+
+    <!-- REVIEW -->
+    <section id="panel-review" class="panel" hidden>
+      <h2>Review a mandal</h2>
+      <form id="form-review" novalidate>
+        <label>Mandal *
+          <select name="mandal_id" class="mandal-select" required></select>
+        </label>
+        <label>Your name (optional)
+          <input name="reviewer" maxlength="40" placeholder="Anonymous">
+        </label>
+        <label>Overall experience *
+          <select name="overall" required>
+            <option value="">Choose</option>
+            <option value="5">5 - Loved it</option>
+            <option value="4">4 - Very good</option>
+            <option value="3">3 - Okay</option>
+            <option value="2">2 - Disappointing</option>
+            <option value="1">1 - Poor</option>
+          </select>
+        </label>
+        <label>How crowded was it? *
+          <select name="crowd" required>
+            <option value="">Choose</option>
+            <option value="1">1 - Calm, hardly any queue</option>
+            <option value="2">2 - Light</option>
+            <option value="3">3 - Moderate</option>
+            <option value="4">4 - Heavy</option>
+            <option value="5">5 - Packed, very long queue</option>
+          </select>
+        </label>
+        <label>How easy was parking? *
+          <select name="parking" required>
+            <option value="">Choose</option>
+            <option value="5">5 - Easy</option>
+            <option value="4">4 - Fairly easy</option>
+            <option value="3">3 - Limited</option>
+            <option value="2">2 - Difficult</option>
+            <option value="1">1 - Practically impossible</option>
+          </select>
+        </label>
+        <label>Comment (optional)
+          <textarea name="comment" maxlength="500" rows="3"></textarea>
+        </label>
+        <button class="btn btn-primary" type="submit">Submit review</button>
+      </form>
+    </section>
+
+    <!-- PHOTOS -->
+    <section id="panel-photos" class="panel" hidden>
+      <h2>Upload pictures of a mandal</h2>
+      <form id="form-photos" novalidate>
+        <label>Mandal *
+          <select name="mandal_id" class="mandal-select" required></select>
+        </label>
+        <label>Your name (optional)
+          <input name="uploader" maxlength="40" placeholder="Anonymous">
+        </label>
+        <label>Photo *
+          <input name="photo" type="file" accept="image/jpeg,image/png,image/webp" required>
+        </label>
+        <button class="btn btn-primary" type="submit">Upload photo</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/contribute.js') }}"></script>
+</body>
+</html>

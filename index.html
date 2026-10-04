@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SoBo Bappa Map - Ganpati mandals of South Mumbai</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">SoBo Bappa Map</a>
+    <a class="btn btn-primary" href="/contribute">Add / Review Mandal</a>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Ganpati mandals of South Mumbai</h1>
+      <p>Hover over a pin to see the mandal and open it in Google Maps. Drag the map to explore.</p>
+    </section>
+
+    <section id="map-section" aria-label="Map of mandals">
+      <div id="map" role="application" aria-label="Interactive map of South Mumbai"></div>
+    </section>
+
+    <section class="browse" aria-labelledby="browse-title">
+      <h2 id="browse-title">Browse and filter mandals</h2>
+      <form id="filter-form" class="filters" onsubmit="return false">
+        <label>Search
+          <input id="f-search" type="search" placeholder="Name or area">
+        </label>
+        <label>Area
+          <select id="f-area"><option value="">All areas</option></select>
+        </label>
+        <label>Overall rating
+          <select id="f-rating">
+            <option value="0">Any</option>
+            <option value="3">3 and above</option>
+            <option value="4">4 and above</option>
+            <option value="4.5">4.5 and above</option>
+          </select>
+        </label>
+        <label>Crowd
+          <select id="f-crowd">
+            <option value="5">Any</option>
+            <option value="2">Light only</option>
+            <option value="3.5">Moderate or lighter</option>
+          </select>
+        </label>
+        <label>Parking
+          <select id="f-parking">
+            <option value="0">Any</option>
+            <option value="2.5">Limited or easier</option>
+            <option value="3.5">Easy only</option>
+          </select>
+        </label>
+        <label>Sort by
+          <select id="f-sort">
+            <option value="name">Name</option>
+            <option value="rating">Highest rated</option>
+            <option value="crowd">Least crowded</option>
+            <option value="parking">Easiest parking</option>
+          </select>
+        </label>
+        <button type="button" id="f-reset" class="btn btn-ghost">Reset</button>
+      </form>
+      <p id="result-count" class="muted" aria-live="polite"></p>
+      <div id="cards" class="cards"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Ratings marked from sample data are placeholders until real visitors review them. Map data &copy; OpenStreetMap contributors.</p>
+  </footer>
+
+  <dialog id="details">
+    <button id="details-close" class="close" aria-label="Close">&times;</button>
+    <div id="details-body"></div>
+  </dialog>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
